@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.userscrm.OneClientActivity
-import com.example.userscrm.data.models.Client
 import com.example.userscrm.R
+import com.example.userscrm.data.models.Client
 
-class ClientAdapter(private val context: Context, private val clients: List<Client>) :
+class ClientAdapter(private val context: Context, private var clients: List<Client>) :
     RecyclerView.Adapter<ClientAdapter.ClientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientViewHolder {
@@ -32,6 +32,10 @@ class ClientAdapter(private val context: Context, private val clients: List<Clie
     }
 
     override fun getItemCount(): Int = clients.size
+
+    fun setClients(newClients: List<Client>) {
+        this.clients = newClients
+    }
 
     inner class ClientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvClientName: TextView = itemView.findViewById(R.id.tvClientName)

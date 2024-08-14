@@ -12,7 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UsersCRM"
         tools:targetApi="31">
-        <activity android:name=".OneClientActivity"></activity>
+        <activity
+            android:name=".AddClientActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_client"
+            android:theme="@style/Theme.UsersCRM" />
+        <activity android:name=".OneClientActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
