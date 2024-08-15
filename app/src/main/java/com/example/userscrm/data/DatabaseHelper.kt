@@ -69,4 +69,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.close()
         return clients
     }
+
+    fun deleteClient(id: Int) {
+        val db = this.writableDatabase
+        db.delete(TABLE_CLIENTS, "$COLUMN_ID = ?", arrayOf(id.toString()))
+        db.close()
+    }
+
 }

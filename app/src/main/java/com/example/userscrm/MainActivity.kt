@@ -1,12 +1,15 @@
 package com.example.userscrm
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.userscrm.adapters.ClientAdapter
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                 clientAdapter.notifyDataSetChanged()
             }
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
