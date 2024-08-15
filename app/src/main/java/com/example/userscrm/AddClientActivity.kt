@@ -1,47 +1,44 @@
 package com.example.userscrm
 
+import android.content.ContentValues
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.userscrm.ui.theme.UsersCRMTheme
+import android.widget.Button
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import com.example.userscrm.data.DatabaseHelper
+import com.example.userscrm.data.models.Client
 
-class AddClientActivity : ComponentActivity() {
+import java.util.Date
+
+class AddClientActivity : AppCompatActivity() {
+
+    private lateinit var db: DatabaseHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            UsersCRMTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+        setContentView(R.layout.activity_add_client)
+
+        db = DatabaseHelper(this)
+
+        val etClientSurname = findViewById<EditText>(R.id.etClientSurname)
+        val etClientName = findViewById<EditText>(R.id.etClientName)
+        val etClientPhone = findViewById<EditText>(R.id.etClientPhone)
+        val btnSave = findViewById<Button>(R.id.btnSave)
+
+        btnSave.setOnClickListener {
+            val surname = etClientSurname.text.toString()
+            val name = etClientName.text.toString()
+            val phone = etClientPhone.text.toString()
+            val date = Date()
+
+            if (surname.isNotEmpty() && name.isNotEmpty() && phone.isNotEmpty()) {
+                val client = Client(0, surname, name, phone, date)
+                db.addClient(client)
+                setResult(RESULT_OK)
+                finish()
+            } else {
+                // Handle empty fields, maybe show a Toast
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    UsersCRMTheme {
-        Greeting("Android")
     }
 }
